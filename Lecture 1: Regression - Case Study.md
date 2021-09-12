@@ -95,4 +95,4 @@ Regularization 要做的事情是重新定義了 loss function。原來的 loss 
 
 [影片-ML Lecture 1: Regression - Case Study](https://youtu.be/fegAeph9UaA)
 
-> 本篇文章來至於台大李宏毅教授2017 機器學習課程[影片](https://www.youtube.com/playlist?list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49)，記錄了課程重點與摘要。更多課程內容可以從[這裡](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17_2.html)取得。
+> 本篇文章來至於台大李宏毅教授 2017 機器學習課程[影片](https://www.youtube.com/playlist?list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49)，記錄了課程重點與摘要。更多課程內容可以從[這裡](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17_2.html)取得。

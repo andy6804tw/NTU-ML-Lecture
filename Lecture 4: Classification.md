@@ -1,3 +1,11 @@
+---
+layout: post
+title: '[AI學習筆記] ML Lecture 4: Classification'
+categories: 'AI'
+description:
+keywords: machine learning ntu
+---
+
 # Classification
 Classification: Probabilistic  Generative Model
 
@@ -128,3 +136,10 @@ Classification: Probabilistic  Generative Model
 推導到最後我們知道，P(C1|x)=σ(z)P(C1|x)=σ(z)，所以我們可以把這整個式子很簡單的寫成σ(w⋅x+b)σ(w⋅x+b)，從這邊也可以瞭解到為什麼假設兩個類別是同一個分佈的時候，它的決策邊界會線性的。在 generative model 中，我們試著去找出N1,N2,μ1,μ2,Σ，找出這五個值，我們就可以得到w,b，也就可以得到機率。或許我們可以直接找出w,b，那就可以不用這麼麻煩的求出上述那五個值。因此在下一章中我們將來討論如何有效找出 w, b。
 
 ![](https://i.imgur.com/eKUl2VR.png)
+
+## Reference
+[簡報-Regression (Case Study)](http://speech.ee.ntu.edu.tw/~tlkagk/courses/ML_2017/Lecture/Regression.pdf)
+
+[影片-ML Lecture 4: Classification](https://youtu.be/fZAZUYEeIMg)
+
+> 本篇文章來至於台大李宏毅教授 2017 機器學習課程[影片](https://www.youtube.com/playlist?list=PLJV_el3uVTsPy9oCRY30oBPNLCo89yu49)，記錄了課程重點與摘要。更多課程內容可以從[這裡](http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17_2.html)取得。

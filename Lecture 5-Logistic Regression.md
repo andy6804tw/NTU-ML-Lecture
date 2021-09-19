@@ -104,5 +104,43 @@ Generative 模型假設資料來自於一個機率模型，並做了某些假設
 
 在做 Discriminative 的時候是直接假設一個 posterior probability，然後去找裡面的參數。而在做 Generative 的時候會將 function 拆成 Priors 與 class-dependent probabilities 這兩項。這件事情在語音辨識中是個重要關鍵。
 
-
 ![](https://i.imgur.com/1bq95JD.png)
+
+## Multi-class Classification
+先前所講的都是兩個類別的例子，接下來要討論多類別的問題該如何解決。接下來會以三個類別做說明，並講解模型計算過程。
+假設我有三個 Class 每一個類別都有自己的 weight 與 bias。 W1~w3 代表三組向量，b1~b3 代表三個 scaler。接下來輸入一個 x，也就是欲分類的對象。將 x 與這三組權重分別計算內積並加上各自的 bias，最後就會得到 z1、z2、z3。這個 z1、z2、z3 可以是任何一個數值，他的範圍可能是負無窮大到正為窮大的任何值。接下來將計算出來的 z1~z3 丟進一個 softmax，所謂的 softmax 是將所有的輸入做 exponential  得到 e(z1)、e(z2)、e(z3) 接著加總起來得到總和。最後將這個總和分別除掉這三項 e(z1)、e(z2)、e(z3) 得到最終的輸出。此時的輸出為每個類別的機率值，因此這三個輸出相加總何必為1。
+
+> 取 exp 之後，最大值與最小值的差距會拉大
+
+![](https://i.imgur.com/6IyjJ1H.png)
+
+![](https://i.imgur.com/cB8IaOw.png)
+
+## Limitation of Logistic Regression
+Logistic 其實有很大的限制，如下圖範例在線性不可分的時候無法有效預測。我們可以發現無法一刀可以將這四筆資料分成兩個類別。
+
+![](https://i.imgur.com/1PHn2Xj.png)
+
+因為在剛剛的計算方法 Logistic Regression 在兩個類別中僅會切出一條直線。以上例來看不管怎麼分割，始終無法將資料分離出來。
+
+![](https://i.imgur.com/tOckkeI.png)
+
+## 解決辦法-思考方向
+其中一種作法就是做 Feature Transformation，它可以幫助我們解決這類的問題。我們可以將 x1 和 x2 做一個轉換，找一個比較好的 feature space。可以讓這個比較好的 feature space 讓 Logistic Regression 是可以處理的。特徵透過空間上的轉換之後，再進行logistic來做預測，達到線性可分目的。但麻煩的問題是找一個好的 Feature Transformation 是很麻煩的，而且現實生活中有許多例子不可能慢慢地找。
+
+![](https://i.imgur.com/dRpOemM.png)
+
+## 合理解法
+因此這裡來討論該如何讓機器自己產生 Feature Transformation。我們把很多個 Logistic Regression 級聯起來就可以了。假設輸入是 x1 與 x2，範例中把 bias 省略掉讓圖看起來比較簡單。x1 與 x2 各自乘上 weight 並加上 bias 得到 z 並通過 sigmoid function，此時的輸出就是新的轉換後的特徵 x1’。我們有另一個 Logistic Regression 的模型，x1 與 x2 各自又乘上另一組 weight 並加上 bias 再通過 sigmoid function 得到 x2’，我們可以說它是轉換後的另一個特徵。
+
+![](https://i.imgur.com/TTpb0nc.png)
+
+如果我們將 x1 和 x2 經過這兩個 Logistic Regression  模型的轉換後，得到 x1’ 與 x2’，而在新的轉換特徵就可以用一條直線分開了。那麼最後只要再接另一個 Logistic Regression  的模型，他的輸入分別是 x1’ 與 x2’。並根據新的轉後後的特徵，他就可以成功的將 class1 與 class2 分開。因此前面這兩個 Logistic Regression 所做的事情就是做特徵轉換。它先把特徵轉換過後，再由後面第三個 Logistic Regression  的模型來做最後的分類。
+
+![](https://i.imgur.com/KpuNIBU.png)
+![](https://i.imgur.com/v8aHpkZ.png)
+
+## Deep Learning
+把這些 Logistic Regression 疊在一起，前後相連起來就變得非常厲害。我們把每一個 Logistic Regression  稱作 Neuron，並將這些 Logistic Regression  串起來所形成的網路就稱為類神經網路。
+
+![](https://i.imgur.com/o8M9tGC.png)
